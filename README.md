@@ -1,11 +1,5 @@
-# frontend
+# Client project to use the go-microservices personal project.
 
-## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
 ```
 yarn serve
 ```
@@ -20,9 +14,9 @@ yarn build
 yarn lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
 
+
+### Run on docker
 ```
 sudo docker run --name vue-app -w /app  -v /app:/app -p 8080:8080 -d node /bin/bash -c "yarn serve"
 ```
