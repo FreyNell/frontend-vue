@@ -1,7 +1,9 @@
 <template>
   <span>
-    <b-button class="m-2" v-b-modal="id">
-      <template v-if="this.type == 'create'">Create Person </template>
+    <b-button v-b-tooltip.hover :title="title" size="sm" class="m-1" v-b-modal="id">
+      <template v-if="this.type == 'create'">
+        <b-icon-plus></b-icon-plus
+      ></template>
       <template v-if="this.type != 'create'">
         <b-icon-pencil></b-icon-pencil>
       </template>
@@ -33,6 +35,7 @@ export default {
       type: Object,
       default() {
         return {
+          id: "0",
           name: "",
           age: "",
           sex: "",
@@ -43,6 +46,7 @@ export default {
   data() {
     return {
       title: this.type == "create" ? "Create Person" : "Update Person",
+      iditem: this.type == "create" ? "" : this.item.id,
       name: this.type == "create" ? "" : this.item.name,
       age: this.type == "create" ? "" : this.item.age,
       sex: this.type == "create" ? "" : this.item.sex,
@@ -60,13 +64,19 @@ export default {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          id: this.iditem,
           name: this.name,
           age: this.age,
           sex: this.sex,
         }),
       })
         .then((data) => data.json())
-        .then((data) => console.log(data));
+        .then((data) => {
+          this.id = data.id;
+          this.name = data.name;
+          this.age = data.age;
+          this.sex = data.sex;
+        });
     },
   },
 };
